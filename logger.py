@@ -145,3 +145,9 @@ def log_event(event_type: str, **details: object) -> None:
         "type": event_type,
         **details,
     }
+
+    mode = "w" if not _event_log_initialized else "a"
+    with open("game_events.jsonl", mode) as f:
+        f.write(json.dumps(event) + "\n")
+
+    _event_log_initialized = True
